@@ -1,25 +1,30 @@
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
 import "./App.css";
-import Media from "./Media";
+import Photo from "./Photo";
+import DatePicker from "./DatePicker";
 
-const nasaAPIKey = 'rbS9YSQx5nnvUtqosZzRi4MwKDgbV6CjnOlOq3a6';
-//const nasaAPIUrl= 'https://api.nasa.gov/planetary/apod?api_key='
 
 function App() {
-
-  const [photoData, setPhotoData] = useState();
+  const [nasaData, setNasaData] = useState();
+  const [photoDate, setPhotoDate] = useState(new Date());
 
   useEffect(() => {
-    axios.get(nasaAPIUrl + nasaAPIKey)
+    const apiKeyParameter = 'api_key=rbS9YSQx5nnvUtqosZzRi4MwKDgbV6CjnOlOq3a6';
+    const nasaAPIUrl= 'https://api.nasa.gov/planetary/apod?'
+    const dateParameter = `date=${photoDate.toISOString().slice(0, 10)}`
+    axios.get(nasaAPIUrl + apiKeyParameter + '&' + dateParameter)
       .then(res => {
-        console.log(res.data);
-        setPhotoData(res.data);
+        setNasaData(res.data);
       })
       .catch(err => {
         console.log(err);
       });
-  }, [])
+  }, [photoDate])
+
+  function changeDate(event) {
+    setPhotoDate(new Date(event.target.value));
+  }
 
   return (
     <div className="App">
@@ -27,15 +32,11 @@ function App() {
         <h1>Nick Mullen's NASA Photo of the Day</h1>
         <h2>What beauty! What wonder! The infinite abyss!</h2>
       </header>
-      <section className="photo">
-      {photoData ?
-        [<Media url={photoData.url} />,
-        <p>{photoData.title}</p>,
-        <p>{photoData.explanation}</p>]
-        :
-        <h2>Loading your photo</h2>
-      }
-      </section>
+      <Photo nasaData={nasaData} />
+      <DatePicker
+        date={photoDate.toISOString().slice(0, 10)}
+        changeDate={changeDate}
+      />
     </div>
   );
 }
