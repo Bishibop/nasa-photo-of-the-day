@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<img
+  alt="NASA Photo of the Day"
+  className="sc-AxjAm ljAAC"
+  src="https://apod.nasa.gov/apod/image/2002/SouthernMoonscapeClaviusTycho1024.jpg"
+/>
+`;

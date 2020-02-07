@@ -1,6 +1,6 @@
 import React from "react";
-import styled from 'styled-components'
-import Media from './Media'
+import styled from 'styled-components';
+import Media from './Media';
 
 const Caption = styled.div`
     margin-top: 40px;
