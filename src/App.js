@@ -5,6 +5,13 @@ import Photo from "./Photo";
 import DatePicker from "./DatePicker";
 
 
+function formatDate(date) {
+  const dateString = date.toLocaleDateString().replace(/\//g, '-');
+  const year = dateString.slice(-4);
+  const monthAndDate = dateString.slice(0, -5);
+  return year + '-' + monthAndDate;
+
+}
 function App() {
   const [nasaData, setNasaData] = useState();
   const [photoDate, setPhotoDate] = useState(new Date());
@@ -12,7 +19,7 @@ function App() {
   useEffect(() => {
     const apiKeyParameter = 'api_key=rbS9YSQx5nnvUtqosZzRi4MwKDgbV6CjnOlOq3a6';
     const nasaAPIUrl= 'https://api.nasa.gov/planetary/apod?'
-    const dateParameter = `date=${photoDate.toISOString().slice(0, 10)}`
+    const dateParameter = `date=${formatDate(photoDate)}`
     axios.get(nasaAPIUrl + apiKeyParameter + '&' + dateParameter)
       .then(res => {
         setNasaData(res.data);
