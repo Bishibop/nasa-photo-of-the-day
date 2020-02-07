@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<section
+  className="sc-AxjAm bbYgwa date-picker"
+>
+  <form>
+    <label>
+      View a different day: 
+      <input
+        onChange={[Function]}
+        type="date"
+        value="02-06-202"
+      />
+    </label>
+  </form>
+</section>
+`;
