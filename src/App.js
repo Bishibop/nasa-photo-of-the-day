@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
+import styled from 'styled-components';
 import "./App.css";
 import Photo from "./Photo";
 import DatePicker from "./DatePicker";
 
 
+// Formats the local time for the NASA api call
 function formatDate(date) {
   const dateString = date.toLocaleDateString().replace(/\//g, '-');
   const year = dateString.slice(-4);
@@ -12,6 +14,17 @@ function formatDate(date) {
   return year + '-' + monthAndDate;
 
 }
+
+const StyledApp = styled.div`
+    width: 80%;
+    margin: 80px auto;
+`;
+
+const StyledHeader = styled.header`
+    text-align: center;
+    margin-bottom: 50px;
+`;
+
 function App() {
   const [nasaData, setNasaData] = useState();
   const [photoDate, setPhotoDate] = useState(new Date());
@@ -34,17 +47,17 @@ function App() {
   }
 
   return (
-    <div className="App">
-      <header>
+    <StyledApp>
+      <StyledHeader>
         <h1>Nick Mullen's NASA Photo of the Day</h1>
         <h2>What beauty! What wonder! The infinite abyss!</h2>
-      </header>
+      </StyledHeader>
       <Photo nasaData={nasaData} />
       <DatePicker
         date={photoDate.toISOString().slice(0, 10)}
         changeDate={changeDate}
       />
-    </div>
+    </StyledApp>
   );
 }
 
